@@ -1,5 +1,31 @@
 h1,
 h2 {
   text-align: center;
+}
+h2 {
   color: dodgerblue;
+}
+.jumbotron {
+  background-color: gold;
+  text-align: center;
+}
+h1 {
+  color: white;
+}
+button,
+.btn {
+  border: 0;
+  outline: 0;
+  background-color: dodgerblue;
+  border-radius: 4px;
+  color: white;
+}
+
+input {
+  outline: 0;
+  border: 0;
+}
+
+label {
+  padding-right: 4px;
 }

@@ -4,7 +4,7 @@ import PostList from "./PostList";
 const Wall = () => {
   const [posts, setPosts] = useState([]);
   const getPosts = useCallback(() => {
-    fetch("/posts")
+    fetch(`${process.env.REACT_APP_API_URL}/posts`)
       .then((rawResult) => rawResult.json())
       .then((result) => setPosts(result));
   }, []);
@@ -15,7 +15,6 @@ const Wall = () => {
 
   return (
     <>
-      <h2>Posts</h2>
       {posts.map((post, index) => (
         <PostList post={post} key={index}></PostList>
       ))}
