@@ -19,6 +19,7 @@ button,
   background-color: dodgerblue;
   border-radius: 4px;
   color: white;
+  margin: 0 10px;
 }
 
 input {
@@ -28,4 +29,22 @@ input {
 
 label {
   padding-right: 4px;
+}
+
+.onLine::before {
+  content: "";
+}
+.onLine {
+  display: inline-block;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin-right: 20px;
+}
+.onLine.false {
+  background-color: orange;
+}
+
+.onLine.true {
+  background-color: green;
 }

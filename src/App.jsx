@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Header from "./component/Header";
+import Footer from "./component/Footer";
 
 // heroku : mars/create-react-app
 
@@ -37,6 +38,7 @@ function App() {
             </section>
           </Col>
         </Row>
+        <Footer></Footer>
       </Container>
     </div>
   );

@@ -16,11 +16,16 @@ const Users = () => {
   }, [token]);
 
   useEffect(() => {
-    getUsers();
+    try {
+      getUsers();
+    } catch (e) {
+      console.log("🚀 ~ file: Users.jsx ~ line 13 ~ getUsers ~ e", e);
+    }
   }, [getUsers]);
 
   return (
     <>
+      {users.length === 0 && "Connectez-vous pour partager avec vos amis"}
       {users.map((user, index) => (
         <UserList user={user} key={index}></UserList>
       ))}

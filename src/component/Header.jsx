@@ -8,7 +8,6 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const token = useSelector(getToken);
-  //   console.log("🚀 ~ file: Header.jsx ~ line 10 ~ Header ~ token", token);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,15 +18,20 @@ const Header = () => {
     })
       .then((rawResult) => rawResult.json())
       .then((result) => {
-        // console.log("🚀 ~ file: Header.jsx ~ line 12 ~ .then ~ result", result);
         localStorage.setItem("token", result["token"]);
         dispatch(add(result["token"]));
       });
   };
 
-  const handleDisconnect = () => {
+  const me = () => {};
+  const handleDisconnect = async () => {
+    const raw = await fetch(`${process.env.REACT_APP_API_URL}/disconnect`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const response = await raw.json();
     dispatch(destroy());
     localStorage.removeItem("token");
+    return response;
   };
 
   return (
@@ -35,7 +39,10 @@ const Header = () => {
       <h1>AllWalls</h1>
       <p>Join - Share - Imagine - Create</p>
       {token ? (
-        <button onClick={handleDisconnect}>Deconnexion</button>
+        <p>
+          <button onClick={me}>Mes publications</button>
+          <button onClick={handleDisconnect}>Deconnexion</button>
+        </p>
       ) : (
         <form onSubmit={(e) => handleLogin(e)}>
           <label>
