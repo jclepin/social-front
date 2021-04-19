@@ -8,6 +8,7 @@ import "./App.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
+import Publish from "./component/Publish";
 
 // heroku : mars/create-react-app
 
@@ -20,22 +21,23 @@ function App() {
       <Container>
         <Header />
         <Row>
-          <Col md={3}>
-            <section>
-              <h2>Amis</h2>
-              <Users></Users>
-            </section>
-          </Col>
           <Col>
             <section>
-              <h2>Posts</h2>
+              {/* <h2>Posts</h2> */}
               <Wall></Wall>
             </section>
           </Col>
-          <Col md={3}>
-            <section>
-              <h2>Plus</h2>
-            </section>
+          <Col md={3} className='col-right'>
+            <div>
+              <section>
+                <h2>Publier</h2>
+                <Publish></Publish>
+              </section>
+              <section>
+                <h2>Amis</h2>
+                <Users></Users>
+              </section>
+            </div>
           </Col>
         </Row>
         <Footer></Footer>

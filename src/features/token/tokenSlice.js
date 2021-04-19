@@ -9,8 +9,8 @@ export const tokenSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    add: (state, token) => {
-      state.value = token;
+    add: (state, action) => {
+      state.value = action.payload;
     },
     destroy: (state) => {
       state.value = "";
@@ -20,6 +20,6 @@ export const tokenSlice = createSlice({
 
 export const { add, destroy } = tokenSlice.actions;
 
-export const getToken = (state) => state.token.value.payload;
+export const getToken = (state) => state.token.value;
 
 export default tokenSlice.reducer;
