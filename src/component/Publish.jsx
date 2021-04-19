@@ -34,7 +34,7 @@ const Publish = () => {
     <div>
       {me.id ? (
         <form onClick={(e) => handlePublish(e)}>
-          <label>
+          <label className='lg'>
             <span>Titre</span>
             <input
               type='text'
@@ -43,7 +43,7 @@ const Publish = () => {
               onChange={(e) => setTitre(e.target.value)}
             />
           </label>
-          <label>
+          <label className='lg'>
             <span>Message</span>
             <textarea
               type='text'
@@ -51,7 +51,7 @@ const Publish = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}></textarea>
           </label>
-          <button type='submit' className='btn btn-lg'>
+          <button type='submit' className='btn-lg'>
             Publier
           </button>
         </form>

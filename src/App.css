@@ -42,7 +42,7 @@ button,
   background-color: var(--primary);
   border-radius: var(--radius);
   color: white;
-  margin: 0 var(--margin);
+  /* margin: 0 var(--margin); */
 }
 .btn-lg {
   width: 100%;
@@ -74,12 +74,16 @@ input,
 textarea {
   outline: 0;
   border: 1px solid var(--light);
+}
+.lg,
+.lg input,
+.lg textarea {
+  display: block;
   width: 100%;
 }
 
 label {
   padding-right: 4px;
-  display: block;
 }
 
 .onLine::before {
