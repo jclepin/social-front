@@ -1,5 +1,6 @@
 :root {
   --radius: 5px;
+  --margin-sm: 5px;
   --margin: 10px;
   --margin-lg: 20px;
   --primary: dodgerblue;
@@ -8,6 +9,7 @@
   --lighter: rgb(240, 240, 240);
   --success: green;
   --warning: orange;
+  --animationS: 0.4s;
 }
 * {
   box-sizing: border-box;
@@ -20,13 +22,17 @@ h2 {
 h2 {
   color: var(--primary);
 }
-header {
+.header {
+  transition: all var(--animationS) ease;
   background-color: var(--secondary);
   text-align: center;
   padding: var(--margin-lg) 0;
   margin-bottom: var(--margin-lg);
   border-radius: var(--radius);
   margin-top: var(--margin);
+}
+.header:hover {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 }
 h1 {
   color: white;
@@ -36,21 +42,45 @@ h1 {
 }
 button,
 .btn {
-  transition: all 0.4s ease;
+  transition: all var(--animationS) ease;
   border: 1px solid var(--primary);
   outline: 0;
   background-color: var(--primary);
   border-radius: var(--radius);
   color: white;
+  margin-right: var(--margin-sm);
   /* margin: 0 var(--margin); */
 }
 .btn-lg {
   width: 100%;
   margin: 0;
 }
+.btn-sm {
+  font-size: small;
+  padding: 2px 4px;
+}
+.btn-xs {
+  font-size: xx-small;
+  padding: 2px 4px;
+}
 button:hover {
   background-color: white;
   color: black;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.top-right {
+  position: absolute;
+  top: var(--margin);
+  right: var(--margin);
+}
+.bottom-right {
+  position: absolute;
+  bottom: var(--margin);
+  right: var(--margin);
 }
 
 /* .col-left {
@@ -83,7 +113,7 @@ textarea {
 }
 
 label {
-  padding-right: 4px;
+  padding-right: var(--margin-sm);
 }
 
 .onLine::before {
@@ -120,10 +150,34 @@ footer {
 }
 
 .card {
-  transition: transform 0.4s ease;
+  transition: transform var(--animationS) ease;
 }
 
 .card:hover {
   border: 1px solid var(--primary);
   transform: scale(1.01);
+}
+
+.toUser {
+  background-color: var(--warning);
+  padding: var(--margin);
+  margin: var(--margin);
+  font-weight: bold;
+  border-radius: var(--radius);
+}
+.success {
+  background-color: var(--success);
+  color: white;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+nav ul li {
+  margin: 0 var(--margin);
+}
+.fade {
+  opacity: 0.5 !important;
 }

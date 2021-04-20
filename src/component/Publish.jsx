@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getToken } from "../features/token/tokenSlice";
 import { getMe } from "../features/me/meSlice";
+import { bug } from "../Utils/fn";
 
 const Publish = () => {
   const [titre, setTitre] = useState("");
@@ -21,7 +22,7 @@ const Publish = () => {
     })
       .then((rawResult) => rawResult.json())
       .then((result) => {
-        // console.log(
+        // bug.log(
         //   "🚀 ~ file: publish.jsx ~ line 22 ~ .then ~ result",
         //   result
         // );
@@ -29,7 +30,6 @@ const Publish = () => {
         // dispatch(add(result["token"]));
       });
   };
-  console.log("id", me.id);
   return (
     <div>
       {me.id ? (
