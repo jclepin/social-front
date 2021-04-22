@@ -200,3 +200,9 @@ nav ul li {
 .basic-template {
   text-align: center;
 }
+.badge {
+  border: 1px solid var(--light);
+  border-radius: var(--radius);
+  font-weight: normal;
+  background-color: white;
+}

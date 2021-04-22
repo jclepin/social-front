@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Basic from "../template/Basic";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [toUser, setToUser] = useState("");
   const dispatch = useDispatch();
-  let history = useHistory();
+  // let history = useHistory();
 
   const handleLogin = (e) => {
     e.preventDefault();

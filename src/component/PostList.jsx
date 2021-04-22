@@ -10,19 +10,17 @@ const PostList = ({ post, responses }) => {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>{post.titre}</Card.Title>
-        {me.id !== post.user_id && (
-          <>
-            <Link
-              className='btn btn-outline btn-sm right'
-              to={`/user/${post.user_id}`}>
-              Profil de {post.login}
-            </Link>
-          </>
-        )}
+        <Card.Title>
+          {post.titre} <small>par</small>{" "}
+          <Link className='btn btn-outline btn-sm' to={`/user/${post.user_id}`}>
+            {me.id !== post.user_id ? `${post.login}` : `Moi`}
+          </Link>
+        </Card.Title>
+
         <Card.Subtitle className='mb-2 text-muted'>
-          {post.login}
-          {me.id === post.user_id && <small> - (me)</small>}
+          <small className='badge right'>
+            {post.public ? "Publique" : "Privé"}
+          </small>
         </Card.Subtitle>
 
         <Card.Text className='whiteSpace'>{post.content}</Card.Text>

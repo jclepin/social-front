@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import connectApi from "../../api/connectApi";
+import addFriendApi from "../../api/addFriendApi";
+import getMeApi from "../../api/getMeApi";
 
 const initialState = {
   token: "",
@@ -8,9 +10,17 @@ const initialState = {
 };
 
 export const loginAsync = createAsyncThunk("users/login", async (user) => {
-  console.log("🚀 ~ file: userSlice.js ~ line 11 ~ loginAsync ~ user", user);
   return await connectApi(user);
 });
+export const getMeAsync = createAsyncThunk("users/me", async (token) => {
+  return await getMeApi(token);
+});
+export const addFriendAsync = createAsyncThunk(
+  "users/addFriend",
+  async ({ token, who }) => {
+    return await addFriendApi({ token, who });
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -53,15 +63,20 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginAsync.fulfilled, (state, action) => {
-      console.log(
-        "🚀 ~ file: userSlice.js ~ line 56 ~ builder.addCase ~ action",
-        action
-      );
-      state.token = action.payload.token;
-      state.me = action.payload.user;
-      state.friends = action.payload.friends;
-    });
+    builder
+      .addCase(loginAsync.fulfilled, (state, action) => {
+        state.token = action.payload.token;
+        state.me = action.payload.user;
+        state.friends = action.payload.friends;
+      })
+      .addCase(getMeAsync.fulfilled, (state, action) => {
+        state.token = action.payload.token;
+        state.me = action.payload.user;
+        state.friends = action.payload.friends;
+      })
+      .addCase(addFriendAsync.fulfilled, (state, action) => {
+        state.friends = action.payload.friends;
+      });
   },
 });
 

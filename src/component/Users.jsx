@@ -1,27 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
 import UserList from "./UserList";
 import { useSelector } from "react-redux";
-import { setFriends, getUser, getFriends } from "../features/user/userSlice";
+import { getUser } from "../features/user/userSlice";
 
 const Users = ({ showFriends }) => {
   const [users, setUsers] = useState([]);
-  const { token } = useSelector(getUser);
-  let friends = useSelector(getFriends);
+  const { token, friends } = useSelector(getUser);
 
   const getUsers = useCallback(async () => {
     let result = [];
 
-    const url = showFriends
-      ? `${process.env.REACT_APP_API_URL}/friends`
-      : `${process.env.REACT_APP_API_URL}/users`;
-    const rawResult = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    if (showFriends) {
+      result = friends;
+    } else {
+      const url = showFriends
+        ? `${process.env.REACT_APP_API_URL}/friends`
+        : `${process.env.REACT_APP_API_URL}/users`;
+      const rawResult = await fetch(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-    result = await rawResult.json();
-    showFriends && setFriends(result);
+      result = await rawResult.json();
+    }
+
     result.error ? setUsers([]) : setUsers(result);
-  }, [token, showFriends]);
+  }, [token, showFriends, friends]);
 
   useEffect(() => {
     try {
@@ -33,7 +36,10 @@ const Users = ({ showFriends }) => {
 
   return (
     <>
-      {users.length === 0 && "Connectez-vous pour partager avec vos amis"}
+      {showFriends && users.length === 0 && "Vous n'avez pas encore d'amis"}
+      {!showFriends &&
+        users.length === 0 &&
+        "Connectez-vous pour partager avec vos amis"}
       {users.map((user, index) => (
         <UserList user={user} key={index}></UserList>
       ))}

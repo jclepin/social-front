@@ -6,33 +6,26 @@ import { bug } from "../Utils/fn";
 const Publish = () => {
   const [titre, setTitre] = useState("");
   const [content, setContent] = useState("");
+  const [publique, setPublique] = useState(true);
   const token = useSelector(getToken);
   const me = useSelector(getMe);
 
-  const handlePublish = (e) => {
+  const handlePublish = async (e) => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_URL}/post`, {
+    const rawResult = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ titre, content }),
-    })
-      .then((rawResult) => rawResult.json())
-      .then((result) => {
-        // bug.log(
-        //   "🚀 ~ file: publish.jsx ~ line 22 ~ .then ~ result",
-        //   result
-        // );
-        // dispatch to posts
-        // dispatch(add(result["token"]));
-      });
+      body: JSON.stringify({ titre, content, public: publique }),
+    });
+    const result = await rawResult.json();
   };
   return (
     <div>
       {me.id ? (
-        <form onClick={(e) => handlePublish(e)}>
+        <form onSubmit={(e) => handlePublish(e)}>
           <label className='lg'>
             <span>Titre</span>
             <input
@@ -49,6 +42,26 @@ const Publish = () => {
               name='content'
               value={content}
               onChange={(e) => setContent(e.target.value)}></textarea>
+          </label>
+          <label>
+            <span>Public </span>
+            <input
+              type='radio'
+              value={publique}
+              name='publique'
+              onChange={(e) => setPublique(true)}
+              checked={publique}
+            />
+          </label>
+          <label className='right'>
+            <span>Privé </span>
+            <input
+              type='radio'
+              value={publique}
+              name='publique'
+              onChange={(e) => setPublique(false)}
+              checked={!publique}
+            />
           </label>
           <button type='submit' className='btn-lg'>
             Publier

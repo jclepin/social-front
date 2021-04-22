@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Wall from "./component/Wall";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, connect, disconnect } from "./features/user/userSlice";
+import { getUser, getMeAsync } from "./features/user/userSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Container } from "react-bootstrap";
@@ -22,22 +22,16 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`${process.env.REACT_APP_API_URL}/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((rawResult) => rawResult.json())
-        .then((result) => {
-          if (result.error === "jwt expired") {
-            dispatch(disconnect());
-            localStorage.removeItem("token");
-          } else {
-            dispatch(connect({ token, me: result }));
-          }
+      try {
+        dispatch(getMeAsync(token)).then(({ payload }) => {
+          // payload?.erreur && setToUser("Problème lors de la connexion");
         });
+      } catch (e) {
+        console.log("🚀 ~ file: Login.jsx ~ line 48 ~ handleLogin ~ e", e);
+      }
     }
   }, [dispatch]);
 
-  console.log("🚀 ~ file: App.jsx ~ line 23 ~ App ~ me", me);
   return (
     <div className='App'>
       <Router>
