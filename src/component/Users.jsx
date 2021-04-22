@@ -1,19 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
 import UserList from "./UserList";
 import { useSelector } from "react-redux";
-import { getToken } from "../features/token/tokenSlice";
+import { setFriends, getUser, getFriends } from "../features/user/userSlice";
 
-const Users = () => {
+const Users = ({ showFriends }) => {
   const [users, setUsers] = useState([]);
-  const token = useSelector(getToken);
+  const { token } = useSelector(getUser);
+  let friends = useSelector(getFriends);
 
   const getUsers = useCallback(async () => {
-    const rawResult = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
+    let result = [];
+
+    const url = showFriends
+      ? `${process.env.REACT_APP_API_URL}/friends`
+      : `${process.env.REACT_APP_API_URL}/users`;
+    const rawResult = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    const result = await rawResult.json();
+
+    result = await rawResult.json();
+    showFriends && setFriends(result);
     result.error ? setUsers([]) : setUsers(result);
-  }, [token]);
+  }, [token, showFriends]);
 
   useEffect(() => {
     try {

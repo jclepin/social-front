@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { getToken, getMe } from "../features/user/userSlice";
 import { bug } from "../Utils/fn";
 
-const Publish = () => {
-  const [titre, setTitre] = useState("");
+const Respond = ({ parent, parentUserId }) => {
   const [content, setContent] = useState("");
   const token = useSelector(getToken);
   const me = useSelector(getMe);
@@ -17,7 +16,12 @@ const Publish = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ titre, content }),
+      body: JSON.stringify({
+        titre: null,
+        content,
+        parent,
+        parent_user_id: parentUserId,
+      }),
     })
       .then((rawResult) => rawResult.json())
       .then((result) => {
@@ -34,24 +38,15 @@ const Publish = () => {
       {me.id ? (
         <form onClick={(e) => handlePublish(e)}>
           <label className='lg'>
-            <span>Titre</span>
-            <input
-              type='text'
-              name='titre'
-              value={titre}
-              onChange={(e) => setTitre(e.target.value)}
-            />
-          </label>
-          <label className='lg'>
-            <span>Message</span>
+            <span>Réponse</span>
             <textarea
               type='text'
               name='content'
               value={content}
               onChange={(e) => setContent(e.target.value)}></textarea>
           </label>
-          <button type='submit' className='btn-lg'>
-            Publier
+          <button type='submit' className='btn-sm right'>
+            Répondre
           </button>
         </form>
       ) : (
@@ -61,6 +56,6 @@ const Publish = () => {
   );
 };
 
-export default Publish;
+export default Respond;
 
 // Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta sed eaque aspernatur rem esse? Eum vero animi assumenda, quo necessitatibus unde ducimus impedit voluptatibus officiis porro reiciendis eligendi. Repellendus dolorem dolor ullam fugit tempore. Ipsum ex provident totam illo veritatis, quos impedit pariatur fugiat sit quis, eius sed et officiis.

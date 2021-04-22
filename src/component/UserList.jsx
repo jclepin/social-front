@@ -1,6 +1,6 @@
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 const UserList = ({ user }) => {
-  user.status = user.status ?? false;
-
   const ShowStatus = () => {
     return <span className={`onLine ${!!user.status}`}></span>;
   };
@@ -8,7 +8,7 @@ const UserList = ({ user }) => {
   return (
     <article>
       <ShowStatus></ShowStatus>
-      {user.login}
+      <Link to={`/user/${user.id}`}>{user.login}</Link>
     </article>
   );
 };
