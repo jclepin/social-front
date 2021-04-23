@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <header className='header p-relative'>
+    <header className='header p-relative background'>
       <h1>AllWalls</h1>
       <p>Join - Share - Imagine - Create</p>
       {me?.id ? (

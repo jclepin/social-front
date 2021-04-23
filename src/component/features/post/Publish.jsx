@@ -7,6 +7,7 @@ const Publish = () => {
   const [titre, setTitre] = useState("");
   const [content, setContent] = useState("");
   const [publique, setPublique] = useState(true);
+  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
   const { token, me } = useSelector(getUser);
@@ -18,6 +19,24 @@ const Publish = () => {
       token &&
         dispatch(postPubAsync({ token, titre, content, publique })).then(
           ({ payload }) => {
+            if (payload.erreur) {
+              setMessage(
+                <div className='toUser'>Pas de message à publier</div>
+              );
+            } else {
+              setTitre("");
+              setContent("");
+              setPublique(true);
+              setMessage(
+                <div className='toUser success'>
+                  Votre message est bien posté
+                </div>
+              );
+            }
+
+            setTimeout(() => {
+              setMessage("");
+            }, 2000);
             // payload.erreur && setToUser("Problème lors de la connexion");
           }
         );
@@ -57,7 +76,7 @@ const Publish = () => {
             />
           </label>
           <label className='right'>
-            <span>Privé </span>
+            <span>Amis </span>
             <input
               type='radio'
               value={publique}
@@ -66,6 +85,7 @@ const Publish = () => {
               checked={!publique}
             />
           </label>
+          {message}
           <button type='submit' className='btn-lg'>
             Publier
           </button>

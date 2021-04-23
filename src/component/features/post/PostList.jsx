@@ -31,11 +31,10 @@ const PostList = ({ post, responses }) => {
           <small> - {response.login}</small>
         </Card.Footer>
       ))}
-      {me.id !== post.user_id && (
-        <Card.Footer>
-          <Respond parent={post.id} parentUserId={post.user_id}></Respond>
-        </Card.Footer>
-      )}
+
+      <Card.Footer>
+        <Respond parent={post.id} parentUserId={post.user_id}></Respond>
+      </Card.Footer>
     </Card>
   );
 };

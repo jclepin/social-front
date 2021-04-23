@@ -7,7 +7,7 @@ import Users from "../../component/features/user/Users";
 import Footer from "../../component/Footer";
 const Complet = ({ children }) => {
   return (
-    <>
+    <div className='complet'>
       <Header />
       <Menu />
       <Row>
@@ -16,15 +16,15 @@ const Complet = ({ children }) => {
         </Col>
         <Col md={3} className='col-right'>
           <div>
-            <section>
+            <section className='background'>
               <h2>Publier</h2>
               <Publish></Publish>
             </section>
-            <section>
+            <section className='background'>
               <h2>Amis</h2>
               <Users showFriends={true}></Users>
             </section>
-            <section>
+            <section className='background'>
               <h2>Utilisateurs</h2>
               <Users></Users>
             </section>
@@ -32,7 +32,7 @@ const Complet = ({ children }) => {
         </Col>
       </Row>
       <Footer></Footer>
-    </>
+    </div>
   );
 };
 

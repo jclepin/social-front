@@ -4,7 +4,7 @@ const Footer = () => {
   //   return result;
   // };
   return (
-    <footer>
+    <footer className='background'>
       {/* <button onClick={resetStatus}>Reset Status</button> */}
       Say hello to the world
     </footer>

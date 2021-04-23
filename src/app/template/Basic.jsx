@@ -1,5 +1,5 @@
 const Basic = ({ children }) => {
-  return <div className='basic-template'>{children}</div>;
+  return <div className='basic-template background'>{children}</div>;
 };
 
 export default Basic;

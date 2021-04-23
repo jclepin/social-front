@@ -5,6 +5,7 @@ import { postPubAsync } from "./postSlice";
 
 const Respond = ({ parent, parentUserId }) => {
   const [content, setContent] = useState("");
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const { token, me } = useSelector(getUser);
 
@@ -16,6 +17,18 @@ const Respond = ({ parent, parentUserId }) => {
         dispatch(
           postPubAsync({ token, content, parent, parent_user_id: parentUserId })
         ).then(({ payload }) => {
+          if (payload.erreur) {
+            setMessage(<div className='toUser'>Pas de message à publier</div>);
+          } else {
+            setContent("");
+            setMessage(
+              <div className='toUser success'>Votre message est bien posté</div>
+            );
+          }
+
+          setTimeout(() => {
+            setMessage("");
+          }, 2000);
           // payload.erreur && setToUser("Problème lors de la connexion");
         });
     } catch (e) {
@@ -34,6 +47,7 @@ const Respond = ({ parent, parentUserId }) => {
               value={content}
               onChange={(e) => setContent(e.target.value)}></textarea>
           </label>
+          {message}
           <button type='submit' className='btn-sm right'>
             Répondre
           </button>

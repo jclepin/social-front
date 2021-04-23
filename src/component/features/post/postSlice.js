@@ -34,10 +34,10 @@ export const postSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getPostAsync.fulfilled, (slice, action) => {
-        slice.posts = action.payload;
+        if (!action.payload.erreur) slice.posts = action.payload;
       })
       .addCase(postPubAsync.fulfilled, (slice, action) => {
-        slice.posts = action.payload;
+        if (!action.payload.erreur) slice.posts = action.payload;
       });
   },
 });

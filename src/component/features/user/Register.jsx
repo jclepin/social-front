@@ -1,5 +1,5 @@
 import { Link, useHistory } from "react-router-dom";
-import Basic from "../../../template/Basic";
+import Basic from "../../../app/template/Basic";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginAsync } from "./userSlice";

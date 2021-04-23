@@ -14,9 +14,7 @@ const Users = ({ showFriends }) => {
         if (showFriends) {
           result = friends;
         } else {
-          const url = showFriends
-            ? `${process.env.REACT_APP_API_URL}/friends`
-            : `${process.env.REACT_APP_API_URL}/users`;
+          const url = `${process.env.REACT_APP_API_URL}/users`;
           const rawResult = await fetch(url, {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -33,7 +31,7 @@ const Users = ({ showFriends }) => {
   }, [token, showFriends, friends]);
 
   return (
-    <>
+    <div>
       {showFriends && users.length === 0 && "Vous n'avez pas encore d'amis"}
       {!showFriends &&
         users.length === 0 &&
@@ -41,7 +39,7 @@ const Users = ({ showFriends }) => {
       {users.map((user, index) => (
         <UserList user={user} key={index}></UserList>
       ))}
-    </>
+    </div>
   );
 };
 

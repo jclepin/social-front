@@ -17,25 +17,34 @@ const Wall = (props) => {
         dispatch(getPostAsync({ token, who })).then(({ payload }) => {
           // payload.erreur && setToUser("Problème lors de la connexion");
         });
+      if (token) {
+        const getCyclePosts = setInterval(() => {
+          dispatch(getPostAsync({ token, who })).then(({ payload }) => {
+            // payload.erreur && setToUser("Problème lors de la connexion");
+          });
+        }, 5000);
+        return () => clearInterval(getCyclePosts);
+      }
     } catch (e) {
       console.log("🚀 ~ file: Wall.jsx ~ line 24 ~ getPosts ~ e", e);
     }
   }, [token, who, dispatch]);
 
   const getResponses = (postId) =>
-    posts.filter((post) => post.parent === postId) || [];
+    (posts && posts.filter((post) => post.parent === postId)) || [];
 
   return (
     <Complet>
       {props.children}
-      {posts
-        .filter((post) => post.parent === null)
-        .map((post) => (
-          <PostList
-            post={post}
-            responses={getResponses(post.id)}
-            key={post.id}></PostList>
-        ))}
+      {posts &&
+        posts
+          .filter((post) => post.parent === null)
+          .map((post) => (
+            <PostList
+              post={post}
+              responses={getResponses(post.id)}
+              key={post.id}></PostList>
+          ))}
     </Complet>
   );
 };
