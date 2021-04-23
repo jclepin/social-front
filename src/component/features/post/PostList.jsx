@@ -19,7 +19,7 @@ const PostList = ({ post, responses }) => {
 
         <Card.Subtitle className='mb-2 text-muted'>
           <small className='badge right'>
-            {post.public ? "Publique" : "Privé"}
+            {post.public ? "Publique" : "Amis"}
           </small>
         </Card.Subtitle>
 

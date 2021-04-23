@@ -8,7 +8,7 @@ import { getUser } from "../user/userSlice";
 const Wall = (props) => {
   const posts = useSelector(getPosts);
   const dispatch = useDispatch();
-  const { token } = useSelector(getUser);
+  const { token, friends, me } = useSelector(getUser);
   const who = props.who || props.match?.params?.who;
 
   useEffect(() => {
@@ -33,11 +33,19 @@ const Wall = (props) => {
   const getResponses = (postId) =>
     (posts && posts.filter((post) => post.parent === postId)) || [];
 
+  const isFriend = (who) => {
+    return friends.some((friend) => friend.id === parseInt(who)) ||
+      me.id === parseInt(who)
+      ? true
+      : false;
+  };
+
   return (
     <Complet>
       {props.children}
       {posts &&
         posts
+          .filter((post) => post.public || isFriend(post.user_id))
           .filter((post) => post.parent === null)
           .map((post) => (
             <PostList

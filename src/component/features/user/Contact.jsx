@@ -18,10 +18,13 @@ const Contact = (props) => {
     }
   };
 
+  const isFriend = () => {
+    return friends.some((friend) => friend.id === parseInt(who)) ? true : false;
+  };
+
   const printButton = () => {
     if (message) return message;
-    else if (friends.some((friend) => friend.id === parseInt(who)))
-      return `Je suis ton ami-e`;
+    else if (isFriend()) return `Je suis ton ami-e`;
     else {
       return <button onClick={handleFriend}>Deviens mon ami ^^</button>;
     }
