@@ -1,9 +1,9 @@
 import { useState } from "react";
 // import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Basic from "../template/Basic";
+import Basic from "../../../template/Basic";
 import { useDispatch } from "react-redux";
-import { loginAsync } from "../features/user/userSlice";
+import { loginAsync } from "./userSlice";
 
 const Login = () => {
   const [login, setLogin] = useState("");

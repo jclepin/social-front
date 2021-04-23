@@ -1,10 +1,10 @@
-import Header from "../component/Header";
-import Menu from "../component/Menu";
+import Header from "../../component/Header";
+import Menu from "../../component/Menu";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
-import Publish from "../component/Publish";
-import Users from "../component/Users";
-import Footer from "../component/Footer";
+import Publish from "../../component/features/post/Publish";
+import Users from "../../component/features/user/Users";
+import Footer from "../../component/Footer";
 const Complet = ({ children }) => {
   return (
     <>

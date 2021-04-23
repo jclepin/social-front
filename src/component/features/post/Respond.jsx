@@ -1,42 +1,31 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { getToken, getMe } from "../features/user/userSlice";
-import { bug } from "../Utils/fn";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../user/userSlice";
+import { postPubAsync } from "./postSlice";
 
 const Respond = ({ parent, parentUserId }) => {
   const [content, setContent] = useState("");
-  const token = useSelector(getToken);
-  const me = useSelector(getMe);
+  const dispatch = useDispatch();
+  const { token, me } = useSelector(getUser);
 
   const handlePublish = (e) => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_API_URL}/post`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        titre: null,
-        content,
-        parent,
-        parent_user_id: parentUserId,
-      }),
-    })
-      .then((rawResult) => rawResult.json())
-      .then((result) => {
-        // bug.log(
-        //   "🚀 ~ file: publish.jsx ~ line 22 ~ .then ~ result",
-        //   result
-        // );
-        // dispatch to posts
-        // dispatch(add(result["token"]));
-      });
+
+    try {
+      token &&
+        dispatch(
+          postPubAsync({ token, content, parent, parent_user_id: parentUserId })
+        ).then(({ payload }) => {
+          // payload.erreur && setToUser("Problème lors de la connexion");
+        });
+    } catch (e) {
+      console.log("🚀 ~ file: Publish.jsx ~ line 24 ~ handlePublish ~ e", e);
+    }
   };
   return (
     <div>
       {me.id ? (
-        <form onClick={(e) => handlePublish(e)}>
+        <form onSubmit={(e) => handlePublish(e)}>
           <label className='lg'>
             <span>Réponse</span>
             <textarea

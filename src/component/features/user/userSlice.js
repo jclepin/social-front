@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import connectApi from "../../api/connectApi";
-import addFriendApi from "../../api/addFriendApi";
-import getMeApi from "../../api/getMeApi";
+import connectApi from "./api/connectApi";
+import addFriendApi from "./api/addFriendApi";
+import getMeApi from "./api/getMeApi";
 
 const initialState = {
   token: "",

@@ -1,8 +1,8 @@
 import { Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { getMe } from "../features/user/userSlice";
+import { getMe } from "../user/userSlice";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Respond from "./Respond";
 
 const PostList = ({ post, responses }) => {

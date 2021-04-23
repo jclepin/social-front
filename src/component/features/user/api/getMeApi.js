@@ -7,7 +7,10 @@ const getMeApi = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-
+    if (!rawResult.ok) {
+      token = "";
+      localStorage.removeItem("token");
+    }
     const result = await rawResult.json();
     return { ...result, token };
   } catch (e) {

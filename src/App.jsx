@@ -1,21 +1,20 @@
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Wall from "./component/Wall";
+import Wall from "./component/features/post/Wall";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, getMeAsync } from "./features/user/userSlice";
+import { getUser, getMeAsync } from "./component/features/user/userSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Container } from "react-bootstrap";
-
-import Messages from "./component/Messages";
-import Contact from "./component/Contact";
-import Login from "./component/Login";
-import Register from "./component/Register";
+import Messages from "./component/features/message/Messages";
+import Contact from "./component/features/user/Contact";
+import Login from "./component/features/user/Login";
+import Register from "./component/features/user/Register";
 
 // heroku : mars/create-react-app
 
-function App() {
+function App(props) {
   const dispatch = useDispatch();
   const { me } = useSelector(getUser);
 

@@ -1,26 +1,29 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { getToken, getMe } from "../features/user/userSlice";
-import { bug } from "../Utils/fn";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../user/userSlice";
+import { postPubAsync } from "./postSlice";
 
 const Publish = () => {
   const [titre, setTitre] = useState("");
   const [content, setContent] = useState("");
   const [publique, setPublique] = useState(true);
-  const token = useSelector(getToken);
-  const me = useSelector(getMe);
+
+  const dispatch = useDispatch();
+  const { token, me } = useSelector(getUser);
 
   const handlePublish = async (e) => {
     e.preventDefault();
-    const rawResult = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ titre, content, public: publique }),
-    });
-    const result = await rawResult.json();
+
+    try {
+      token &&
+        dispatch(postPubAsync({ token, titre, content, publique })).then(
+          ({ payload }) => {
+            // payload.erreur && setToUser("Problème lors de la connexion");
+          }
+        );
+    } catch (e) {
+      console.log("🚀 ~ file: Publish.jsx ~ line 24 ~ handlePublish ~ e", e);
+    }
   };
   return (
     <div>

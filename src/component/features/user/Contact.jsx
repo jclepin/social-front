@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, addFriendAsync } from "../features/user/userSlice";
+import { getUser, addFriendAsync } from "./userSlice";
 
 const Contact = (props) => {
   const { who } = props.match.params;

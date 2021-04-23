@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getToken, disconnect, getMe } from "../features/user/userSlice";
+import { getToken, disconnect, getMe } from "./features/user/userSlice";
 import { Link } from "react-router-dom";
 
 const Header = () => {
