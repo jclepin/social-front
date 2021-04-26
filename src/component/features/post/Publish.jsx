@@ -10,36 +10,31 @@ const Publish = () => {
   const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
-  const { token, me } = useSelector(getUser);
+  const { me } = useSelector(getUser);
 
   const handlePublish = async (e) => {
     e.preventDefault();
 
     try {
-      token &&
-        dispatch(postPubAsync({ token, titre, content, publique })).then(
-          ({ payload }) => {
-            if (payload.erreur) {
-              setMessage(
-                <div className='toUser'>Pas de message à publier</div>
-              );
-            } else {
-              setTitre("");
-              setContent("");
-              setPublique(true);
-              setMessage(
-                <div className='toUser success'>
-                  Votre message est bien posté
-                </div>
-              );
-            }
-
-            setTimeout(() => {
-              setMessage("");
-            }, 2000);
-            // payload.erreur && setToUser("Problème lors de la connexion");
+      dispatch(postPubAsync({ titre, content, publique })).then(
+        ({ payload }) => {
+          if (payload.erreur) {
+            setMessage(<div className='toUser'>Pas de message à publier</div>);
+          } else {
+            setTitre("");
+            setContent("");
+            setPublique(true);
+            setMessage(
+              <div className='toUser success'>Votre message est bien posté</div>
+            );
           }
-        );
+
+          setTimeout(() => {
+            setMessage("");
+          }, 2000);
+          // payload.erreur && setToUser("Problème lors de la connexion");
+        }
+      );
     } catch (e) {
       console.log("🚀 ~ file: Publish.jsx ~ line 24 ~ handlePublish ~ e", e);
     }
