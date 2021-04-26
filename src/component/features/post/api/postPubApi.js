@@ -1,5 +1,4 @@
 const postPubApi = async ({
-  token,
   titre = null,
   content,
   publique = true,
@@ -8,9 +7,10 @@ const postPubApi = async ({
 }) => {
   const rawResult = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       titre,

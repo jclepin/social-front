@@ -1,18 +1,21 @@
-const getMeApi = async (token) => {
+const getMeApi = async () => {
   try {
     const rawResult = await fetch(`${process.env.REACT_APP_API_URL}/me`, {
       method: "GET",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
     });
     if (!rawResult.ok) {
-      token = "";
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
+      return { erreur: "erreur" };
+      // dispatch(disconnect());
+      // history.push("/");
     }
     const result = await rawResult.json();
-    return { ...result, token };
+    return { ...result };
   } catch (e) {
     console.log("🚀 ~ file: getMeApi.js ~ line 15 ~ getMeApi ~ e", e);
   }

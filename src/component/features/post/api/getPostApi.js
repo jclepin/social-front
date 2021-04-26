@@ -1,7 +1,11 @@
-const getPostApi = async ({ token, who }) => {
+const getPostApi = async ({ who }) => {
   let url = `${process.env.REACT_APP_API_URL}/posts`;
   let fetchOptions = {
-    headers: { Authorization: `Bearer ${token}` },
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: `Bearer ${token}`,
+    },
   };
 
   if (who !== undefined) {

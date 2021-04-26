@@ -1,10 +1,11 @@
-const addFriendApi = async ({ token, who }) => {
+const addFriendApi = async ({ who }) => {
   try {
     const rawResult = await fetch(`${process.env.REACT_APP_API_URL}/friends`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ friendId: who }),
     });

@@ -16,7 +16,7 @@ const Users = ({ showFriends }) => {
         } else {
           const url = `${process.env.REACT_APP_API_URL}/users`;
           const rawResult = await fetch(url, {
-            headers: { Authorization: `Bearer ${token}` },
+            credentials: "include",
           });
 
           result = await rawResult.json();

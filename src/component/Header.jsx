@@ -1,21 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getToken, disconnect, getMe } from "./features/user/userSlice";
+import { disconnect, getMe } from "./features/user/userSlice";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const token = useSelector(getToken);
   const me = useSelector(getMe);
   let history = useHistory();
 
   const handleDisconnect = async () => {
     const raw = await fetch(`${process.env.REACT_APP_API_URL}/disconnect`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { "Content-Type": "application/json", credentials: "include" },
     });
     await raw.json();
     dispatch(disconnect());
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
     history.push("/");
   };
 

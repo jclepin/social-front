@@ -8,15 +8,14 @@ const initialState = {
 
 export const getPostAsync = createAsyncThunk(
   "users/getPub",
-  async ({ token, who }) => {
-    return await getPostApi({ token, who });
+  async ({ who }) => {
+    return await getPostApi({ who });
   }
 );
 export const postPubAsync = createAsyncThunk(
   "users/postPub",
-  async ({ token, titre, content, publique, parent, parent_user_id }) => {
+  async ({ titre, content, publique, parent, parent_user_id }) => {
     return await postPubApi({
-      token,
       titre,
       content,
       publique,

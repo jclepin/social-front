@@ -3,7 +3,11 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Wall from "./component/features/post/Wall";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, getMeAsync } from "./component/features/user/userSlice";
+import {
+  getUser,
+  getMeAsync,
+  disconnect,
+} from "./component/features/user/userSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Container } from "react-bootstrap";
@@ -12,6 +16,7 @@ import Contact from "./component/features/user/Contact";
 import Login from "./component/features/user/Login";
 import Register from "./component/features/user/Register";
 import NotFound from "./component/NotFound";
+import Cookie from "./component/Cookie";
 
 // heroku : mars/create-react-app
 
@@ -20,15 +25,15 @@ function App(props) {
   const { me } = useSelector(getUser);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        dispatch(getMeAsync(token)).then(({ payload }) => {
-          // payload?.erreur && setToUser("Problème lors de la connexion");
-        });
-      } catch (e) {
-        console.log("🚀 ~ file: Login.jsx ~ line 48 ~ handleLogin ~ e", e);
-      }
+    try {
+      // const getCycleMe = setInterval(() => {
+      dispatch(getMeAsync()).then(({ payload }) => {
+        payload?.erreur && dispatch(disconnect());
+      });
+      // }, 2000);
+      // return () => clearInterval(getCycleMe);
+    } catch (e) {
+      console.log("🚀 ~ file: Login.jsx ~ line 48 ~ handleLogin ~ e", e);
     }
   }, [dispatch]);
 
@@ -58,6 +63,9 @@ function App(props) {
     } else {
       return (
         <Switch>
+          <Route path='/cookie'>
+            <Cookie />
+          </Route>
           <Route path='/login'>
             <Login />
           </Route>

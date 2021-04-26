@@ -8,27 +8,25 @@ import { getUser } from "../user/userSlice";
 const Wall = (props) => {
   const posts = useSelector(getPosts);
   const dispatch = useDispatch();
-  const { token, friends, me } = useSelector(getUser);
+  const { friends, me } = useSelector(getUser);
   const who = props.who || props.match?.params?.who;
 
   useEffect(() => {
     try {
-      token &&
-        dispatch(getPostAsync({ token, who })).then(({ payload }) => {
+      dispatch(getPostAsync({ who })).then(({ payload }) => {
+        // payload.erreur && setToUser("Problème lors de la connexion");
+      });
+
+      const getCyclePosts = setInterval(() => {
+        dispatch(getPostAsync({ who })).then(({ payload }) => {
           // payload.erreur && setToUser("Problème lors de la connexion");
         });
-      if (token) {
-        const getCyclePosts = setInterval(() => {
-          dispatch(getPostAsync({ token, who })).then(({ payload }) => {
-            // payload.erreur && setToUser("Problème lors de la connexion");
-          });
-        }, 5000);
-        return () => clearInterval(getCyclePosts);
-      }
+      }, 5000);
+      return () => clearInterval(getCyclePosts);
     } catch (e) {
       console.log("🚀 ~ file: Wall.jsx ~ line 24 ~ getPosts ~ e", e);
     }
-  }, [token, who, dispatch]);
+  }, [who, dispatch]);
 
   const getResponses = (postId) =>
     (posts && posts.filter((post) => post.parent === postId)) || [];
